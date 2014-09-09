@@ -4,14 +4,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
-public class MyActivity extends ActionBarActivity {
+public class MyActivity extends ActionBarActivity implements ConsultaJSON.ConsultaSituacaoListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+
+        new ConsultaJSON(this).execute();
     }
 
 
@@ -32,5 +35,11 @@ public class MyActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConsultaConcluida(String situacaoTempo) {
+        TextView textView = (TextView) findViewById(R.id.txt_Conexao);
+        textView.setText(situacaoTempo);
     }
 }
